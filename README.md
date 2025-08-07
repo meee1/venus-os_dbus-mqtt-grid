@@ -568,7 +568,7 @@ Additional information can be found in this [issue](https://github.com/mr-manuel
 2. Execute this commands to download and copy the files:
 
     ```bash
-    wget -O /tmp/download_dbus-mqtt-grid.sh https://raw.githubusercontent.com/mr-manuel/venus-os_dbus-mqtt-grid/master/download.sh
+    wget -O /tmp/download_dbus-mqtt-grid.sh https://raw.githubusercontent.com/meee1/venus-os_dbus-mqtt-grid/master/download.sh
 
     bash /tmp/download_dbus-mqtt-grid.sh
     ```
