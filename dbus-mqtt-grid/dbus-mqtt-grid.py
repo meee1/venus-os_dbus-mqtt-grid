@@ -183,6 +183,7 @@ def on_message(client, userdata, msg):
             if msg.payload != "" and msg.payload != b"":
                 last_changed = int(time())
                 grid_power = float(msg.payload)
+                grid_current = float(grid_L1_power / grid_L1_voltage if grid_L1_voltage != 0 else 0)
                 #grid_L1_power = float(grid_power)
         if msg.topic == config["MQTT"]["topicl1voltage"]:
             if msg.payload != "" and msg.payload != b"":
