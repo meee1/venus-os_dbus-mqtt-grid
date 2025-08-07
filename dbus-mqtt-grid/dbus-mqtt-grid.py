@@ -190,10 +190,10 @@ def on_message(client, userdata, msg):
                 grid_voltage = float(msg.payload)
         if msg.topic == config["MQTT"]["topicforward"]:
             if msg.payload != "" and msg.payload != b"":
-                grid_forward = float(msg.payload)
+                grid_forward = float(msg.payload) / 1000.0
         if msg.topic == config["MQTT"]["topicreverse"]:
             if msg.payload != "" and msg.payload != b"":
-                grid_reverse = float(msg.payload)
+                grid_reverse = float(msg.payload) / 1000.0
 
         # get JSON from topic
         if msg.topic == config["MQTT"]["topic"]:
