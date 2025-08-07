@@ -190,7 +190,7 @@ def on_message(client, userdata, msg):
                 grid_L1_voltage = grid_voltage
         if msg.topic == config["MQTT"]["topicl1current"]:
             if msg.payload != "" and msg.payload != b"":
-                grid_current = float(msg.payload)
+                grid_current = grid_L1_power / grid_L1_voltage if grid_L1_voltage != 0
                 grid_L1_current = grid_current
 
         # get JSON from topic
