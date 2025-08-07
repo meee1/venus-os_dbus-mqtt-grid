@@ -165,9 +165,10 @@ def on_connect(client, userdata, flags, reason_code, properties):
         logging.info("MQTT client: Connected to MQTT broker!")
         connected = 1
         client.subscribe(config["MQTT"]["topic"])
-        client.subscribe(config["MQTT"]["topicl1power"])
-        client.subscribe(config["MQTT"]["topicl1voltage"])
-        client.subscribe(config["MQTT"]["topicl1current"])
+        client.subscribe(config["MQTT"]["topicpower"])
+        client.subscribe(config["MQTT"]["topicvoltage"])
+        client.subscribe(config["MQTT"]["topicforward"])
+        client.subscribe(config["MQTT"]["topicreverse"])
     else:
         logging.error("MQTT client: Failed to connect, return code %d\n", reason_code)
 
@@ -179,14 +180,20 @@ def on_message(client, userdata, msg):
         global grid_L2_power, grid_L2_current, grid_L2_voltage, grid_L2_frequency, grid_L2_power_factor, grid_L2_forward, grid_L2_reverse
         global grid_L3_power, grid_L3_current, grid_L3_voltage, grid_L3_frequency, grid_L3_power_factor, grid_L3_forward, grid_L3_reverse
         
-        if msg.topic == config["MQTT"]["topicl1power"]:
+        if msg.topic == config["MQTT"]["topicpower"]:
             if msg.payload != "" and msg.payload != b"":
                 last_changed = int(time())
                 grid_power = float(msg.payload)
                 grid_current = float(grid_power / grid_voltage if grid_voltage != 0 else 0)
-        if msg.topic == config["MQTT"]["topicl1voltage"]:
+        if msg.topic == config["MQTT"]["topicvoltage"]:
             if msg.payload != "" and msg.payload != b"":
                 grid_voltage = float(msg.payload)
+        if msg.topic == config["MQTT"]["topicforward"]:
+            if msg.payload != "" and msg.payload != b"":
+                grid_forward = float(msg.payload)
+        if msg.topic == config["MQTT"]["topicreverse"]:
+            if msg.payload != "" and msg.payload != b"":
+                grid_reverse = float(msg.payload)
 
         # get JSON from topic
         if msg.topic == config["MQTT"]["topic"]:
