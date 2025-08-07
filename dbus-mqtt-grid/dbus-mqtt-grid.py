@@ -77,6 +77,9 @@ if "DEFAULT" in config and "device_type" in config["DEFAULT"]:
     elif config["DEFAULT"]["device_type"] == "heatpump":
         device_type = "heatpump"
         device_type_name = "Heat Pump"
+    elif config["DEFAULT"]["device_type"] == "pvinverter":
+        device_type = "pvinverter"
+        device_type_name = "PV Inverter"
     else:
         logging.warning('The "device_type" in the "config.ini" is not set to an allowed type. Check the config.sample.ini for allowed types. Fallback to "grid" for now.')
         device_type = "grid"
@@ -338,6 +341,8 @@ class DbusMqttGridService:
         self._dbusservice.add_path("/FirmwareVersion", "0.1.9-dev (20250427)")
         # self._dbusservice.add_path('/HardwareVersion', '')
         self._dbusservice.add_path("/Connected", 1)
+        if config["DEFAULT"]["device_type"] == "pvinverter":
+            self._dbusservice.add_path("/Position", 0)
 
         self._dbusservice.add_path("/Latency", None)
 
