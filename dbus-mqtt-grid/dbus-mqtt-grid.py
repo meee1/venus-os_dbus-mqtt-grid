@@ -175,6 +175,17 @@ def on_message(client, userdata, msg):
         global grid_L1_power, grid_L1_current, grid_L1_voltage, grid_L1_frequency, grid_L1_power_factor, grid_L1_forward, grid_L1_reverse
         global grid_L2_power, grid_L2_current, grid_L2_voltage, grid_L2_frequency, grid_L2_power_factor, grid_L2_forward, grid_L2_reverse
         global grid_L3_power, grid_L3_current, grid_L3_voltage, grid_L3_frequency, grid_L3_power_factor, grid_L3_forward, grid_L3_reverse
+        
+        if msg.topic == config["MQTT"]["topicl1power"]:
+            last_changed = int(time())
+            grid_power = float(msg.payload)
+            grid_L1_power = grid_power
+        if msg.topic == config["MQTT"]["topicl1voltage"]:
+            grid_voltage = float(msg.payload)
+            grid_L1_voltage = grid_voltage
+        if msg.topic == config["MQTT"]["topicl1current"]:
+            grid_current = float(msg.payload)
+            grid_L1_current = grid_current
 
         # get JSON from topic
         if msg.topic == config["MQTT"]["topic"]:
