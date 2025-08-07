@@ -165,6 +165,9 @@ def on_connect(client, userdata, flags, reason_code, properties):
         logging.info("MQTT client: Connected to MQTT broker!")
         connected = 1
         client.subscribe(config["MQTT"]["topic"])
+        client.subscribe(config["MQTT"]["topicl1power"])
+        client.subscribe(config["MQTT"]["topicl1voltage"])
+        client.subscribe(config["MQTT"]["topicl1current"])
     else:
         logging.error("MQTT client: Failed to connect, return code %d\n", reason_code)
 
